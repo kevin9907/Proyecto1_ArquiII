@@ -22,7 +22,7 @@ class Cache():
                 return self.memoria[x][0]
         return "Error"
             
-
+#Clase privada
     def __writeLastMem(self):
         res = 0
         last = self.memoria[0][1];
