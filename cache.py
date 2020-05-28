@@ -14,15 +14,14 @@ class Cache():
 
     def readMem(self, direccion):
         for x in range(self.cantidad):
-            print("direccion en cache: " + self.memoria[x][2])
             if(self.memoria[x][2]==direccion):
-                time.sleep(self.tiempo)
+                time.sleep(self.tiempo*2)
                 self.memoria[x][1] = self.lastTime
                 self.lastTime += 1
                 return self.memoria[x][0]
         return "Error"
             
-#Clase privada
+
     def __writeLastMem(self):
         res = 0
         last = self.memoria[0][1];
@@ -42,7 +41,6 @@ class Cache():
                 time.sleep(self.tiempo)
                 return x;
             elif(self.memoria[x][2] == direccion):
-                print("entra")
                 self.memoria[x][0] = info
                 self.memoria[x][1] = self.lastTime
                 self.memoria[x][2] = direccion
