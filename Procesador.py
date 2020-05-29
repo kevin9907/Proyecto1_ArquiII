@@ -9,6 +9,7 @@ class Procesador:
         self.controller = controller
         self.bus_instrucc = []
         self.name = name
+        self.direcList = []
         self.chip = chip
         self.read = threading.Thread(target = self.readInstruccion, args=())
         self.read.start()
@@ -23,6 +24,7 @@ class Procesador:
                 proc = instr[0:2]
                 chip = instr[3]
                 op = instr[5:10]
+                self.bus_instrucc = self.bus_instrucc[1:]
                 if(proc == self.name):
                     if(chip == self.chip):
                         print(op[0] == "R")
@@ -44,14 +46,18 @@ class Procesador:
                         else:
                             print("Entra a write")
                             print(self.cacheL1.writeMem(instr[16:20],instr[11:15]))
+                    else:
+                        if(op[0] == "R"):
+                            if(self.incache(instr[10:14])):
+                                self.cacheL1.changeState()
+
+
+
+        def incache(self,direc):
+            
+            
                         
             
             
-def main():
-    c = Controller()
-    x = Procesador("P0","0",c)
-    y = Procesador("P1","0",c)
-    y.newInstruccion("P1,0:READ 1010")
-    x.newInstruccion("P0,0:READ 1010")
-            
+        
             
