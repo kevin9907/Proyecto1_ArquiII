@@ -35,17 +35,21 @@ class Procesador:
                                 print(self.controller.getEx())
                                 while(self.controller.getEx() == 1):
                                     print("El procesador " + proc + " Esta Esperando")
-
                                 self.controller.setEx(1)
                                 data = self.controller.readMemL2(instr[10:14])
                                 self.controller.setEx(0)
                                 print ("el dato de "+ proc + "es " + data)
-                                return data
+                                ##return data
                         elif(op == "CALC"):
                             print("Calculando")
                         else:
                             print("Entra a write")
-                            print(self.cacheL1.writeMem(instr[16:20],instr[11:15]))
+                            write = self.cacheL1.writeMem(instr[16:20],instr[11:15])
+                            print(write)
+                            self.direcList.append(instr[11:15])
+                            if(type(write) == list):
+                                self.borrardeCache(write[0])
+                                    
                     else:
                         if(op[0] == "R"):
                             if(self.incache(instr[10:14])):
@@ -53,7 +57,19 @@ class Procesador:
 
 
 
-        def incache(self,direc):
+        #def incache(self,direc):
+
+        def borrardeCache(self,direc):
+            direcciones = self.direcList
+            y = 0;
+            for x in direcciones:
+                if(x == direc):
+                    self.direcList = self.directList[0:y] + direcList[y+1:len(self.direcList)]
+                    break
+                else:
+                    y += 1
+            
+                    
             
             
                         
