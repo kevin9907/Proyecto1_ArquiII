@@ -11,7 +11,7 @@ class Cache():
 
     def iniciarMemoria(self):
         for x in range(self.cantidad):
-            self.memoria.append([0,0,"0"]);
+            self.memoria.append([0,0,"0",""]);
 
     def readMem(self, direccion):
         for x in range(self.cantidad):
@@ -37,12 +37,11 @@ class Cache():
     def writeMem(self, info, direccion):
         print(self.getFreeMemory())
         for x in range(self.cantidad):
-            print(self.memoria[x][2])
-            print(direccion)
             if self.memoria[x][2] == "0":
                 self.memoria[x][0] = info
                 self.memoria[x][1] = self.lastTime
                 self.memoria[x][2] = direccion
+                self.memoria[x][3] = "M"
                 self.__freeMemory -= 1
                 self.lastTime += 1
                 time.sleep(self.tiempo)
@@ -52,6 +51,7 @@ class Cache():
                 self.memoria[x][1] = self.lastTime
                 self.memoria[x][2] = direccion
                 self.lastTime += 1
+                self.memoria[x][3] = "M"
                 time.sleep(self.tiempo)
                 return "SobreEscrito"
             elif(self.getFreeMemory()  == 0 and x == self.cantidad-1):
@@ -73,3 +73,23 @@ class Cache():
 
     def getFreeMemory(self):
         return self.__freeMemory
+
+    def getLastTime(self):
+        return self.lastTime
+
+    def getLastOne(self):
+        res = self.memoria[0][2]
+        last = self.memoria[0][1];
+        for x in range(self.cantidad):
+            if self.memoria[x][1] < last:
+                res = self.memoria[x][2]
+                last = self.memoria[x][1]
+        print(res)
+        return res
+
+
+    def changeState(self,direc,newState):
+        for x in range(self.cantidad):
+            if(self.memoria[x][2]==direc):
+                self.memoria[x][3]==newState
+        

@@ -21,3 +21,15 @@ class Controller:
 
     def setEx(self,val):
         self.execution = val
+
+    def getCacheL2FreeMemory(self):
+        return self.cacheL2.getFreeMemory()
+
+    def getLastTime(self):
+        return self.cacheL2.getLastTime()
+
+    def getLastOne(self):
+        return self.cacheL2.getLastOne()
+
+    def changeState(self,direc,newState):
+        self.cacheL2.changeState(direc,newState)
