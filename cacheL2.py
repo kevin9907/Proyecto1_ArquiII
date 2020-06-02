@@ -43,16 +43,14 @@ class CacheL2(memoria):
 
     def readMem(self, direccion, proc):
         for x in range(4):
-            print("Leyendo de L2: "+ direccion)
-            print(self.memoria[x][0])
+            #print("Leyendo de L2: "+ direccion)
+            #print(self.memoria[x][0])
             if(self.memoria[x][0]==direccion):
                 largo = len(self.memoria[x][2])
                 if(largo==1 and (proc not in self.memoria[x][2])):
-                    print("Cambia estado")
-                    self.memoria[x][1] = "DS"
+                    #print("Cambia estado")
+                    #self.memoria[x][1] = "DS"
                     self.memoria[x][2] += [proc]
-                elif(proc in self.memoria[x][2]):
-                    print("No hacer nada")
                 return self.memoria[x]
                 
         return "Error"
@@ -72,7 +70,7 @@ class CacheL2(memoria):
                 self.memoria[x][3] = data
                 self.memoria[x][2] = [chip]
                 self.memoria[x][1] = "DM"
-                print(self.memoria[x][2])
+                #print(self.memoria[x][2])
                 self.memoria[x][0] = direct
                 break
 

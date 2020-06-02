@@ -34,26 +34,36 @@ class memoria:
         for x in range(16):
             if (self.memoria[x][0] == direc):
                 if(chip in self.memoria[x][2]):
-                    print()
+                    w=1#print()
+                elif(len(self.memoria[x][2])==0):
+                    self.memoria[x][2] += [chip]
+                    self.memoria[x][1] = "DM"
+                #print(self.print())
                 else:
                     self.memoria[x][2] += [chip]
-                    
+                    self.memoria[x][1] = "DS"
                 return self.memoria[x]
 
     def write(self,direc,data,chip):
         for x in range(16):
             if (direc == self.memoria[x][0]):
                 self.memoria[x][3] = data
+                print(data)
                 largo = len(self.memoria[x][2])
                 for y in range(largo):
-                    print(y)
-                    if(self.memoria[x][2][y] == chip):
-                        print(self.memoria[x][2][0:y] + self.memoria[x][2][y+1:largo])
+                    #print(y)
+                    if(largo == 2):
+                        #print(self.memoria[x][2][0:y] + self.memoria[x][2][y+1:largo])
                         self.memoria[x][2] = self.memoria[x][2][0:y] + self.memoria[x][2][y+1:largo]
+                        self.memoria[x][1] = "DI"
                         return self.memoria[x][2]
+                    elif(self.memoria[x][2][y] == chip):
+                        self.memoria[x][2] = []
+                        self.memoria[x][1] = ""
                     
 
-    def changeState(self,state,direc):
+    def changeState(self,state,direc, chip):
         for x in range(16):
             if (self.memoria[x][0] == direc):
                 self.memoria[x][1] = state
+                self.memoria[x][2] += [chip]

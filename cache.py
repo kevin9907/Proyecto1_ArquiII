@@ -1,4 +1,6 @@
 import time
+from prettytable import PrettyTable
+
 class Cache():
 
     def __init__(self,cantidad, memoria, tiempo):
@@ -19,7 +21,7 @@ class Cache():
                 time.sleep(self.tiempo)
                 self.memoria[x][1] = self.lastTime
                 self.lastTime += 1
-                return self.memoria[x][0]
+                return self.memoria[x]
         return "Error"
             
 
@@ -66,6 +68,7 @@ class Cache():
             self.memoria[direc][0] = info
             self.memoria[direc][1] = self.lastTime
             self.memoria[direc][2] = direccion
+            self.memoria[direc][3] = "M"
             self.lastTime += 1
             time.sleep(self.tiempo)
             writeBackInfo = [lastdirec,deleteInfo]
@@ -74,6 +77,7 @@ class Cache():
             self.memoria[direc][0] = info
             self.memoria[direc][1] = self.lastTime
             self.memoria[direc][2] = direccion
+            self.memoria[direc][3] = "M"
             self.lastTime += 1
             time.sleep(self.tiempo)
             writeBackInfo = [lastdirec,deleteInfo]
@@ -101,5 +105,11 @@ class Cache():
                 #print("cambia")
                 #print("newState")
                 self.memoria[x][3] = newState
+
+    def print(self):
+        t = PrettyTable(["Estado","Dato","Direccion"])
+        for x in self.memoria:
+            t.add_row([x[3],x[0],x[2]])
+        print(t)
                 
         
